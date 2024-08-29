@@ -2,25 +2,33 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import io
-from PIL import Image  # Import PIL for image processing
+from PIL import Image
+import requests
+from io import BytesIO
 
-# (Existing code for parameter descriptions and functions...)
+# Function definitions and parameter descriptions
+# Add your existing parameter_mapping and parameter_descriptions here
+
+def process_data(uploaded_file, partner_id, buffer_percent, grade, district_digits, block_digits, school_digits, student_digits, selected_param):
+    # Add your implementation here
+    pass
 
 def main():
     st.title("Student ID Generator")
-    
+
     # Initialize session state for buttons
     if 'buttons_initialized' not in st.session_state:
         st.session_state['buttons_initialized'] = True
         st.session_state['download_data'] = None
         st.session_state['download_mapped'] = None
         st.session_state['download_teachers'] = None
-    
+
     # Display the image before parameter selection
-    image_path = "G:\\My Drive\\StudentID\\Pic.png"  # Path to your local image file
+    image_url = "https://github.com/pranay-raj-goud/Testing/blob/889f28dd72ee8e1402374d4abc69c22e05b7c21b/Pic.png?raw=true"  # URL to your image file
     try:
-        # Load and display the image
-        image = Image.open(image_path)
+        # Fetch and display the image
+        response = requests.get(image_url)
+        image = Image.open(BytesIO(response.content))
         st.image(image, caption='Parameters for Custom ID Generation', use_column_width=True)
     except Exception as e:
         st.error(f"Error loading image: {e}")
